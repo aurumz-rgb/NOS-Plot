@@ -3,20 +3,18 @@ primary_region = "bom"
 
 [build]
 
-# Define processes
 [processes]
-app = "python app.py"
+  app = "python app.py"
 
-# HTTP service configuration
 [http_service]
-  internal_port = 8501        # matches app.py PORT default
+  internal_port = 8501
   force_https = true
   auto_stop_machines = "stop"
   auto_start_machines = true
   min_machines_running = 0
-  processes = ["app"]         # which process to run for HTTP
+  processes = ["app"]
 
 [[vm]]
-memory = "512mb"
-cpu_kind = "shared"
-cpus = 1
+  memory = "512mb"
+  cpu_kind = "shared"
+  cpus = 1
