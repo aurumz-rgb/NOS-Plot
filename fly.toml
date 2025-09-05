@@ -4,7 +4,8 @@ primary_region = "bom"
 [build]
   builder = "paketobuildpacks/builder:full"
   [build.env]
-    BP_PYTHON_VERSION = "3.11.*"   # Force Python 3.11
+    BP_PYTHON_VERSION = "3.11.*"
+    PIP_NO_CACHE_DIR = "true"   # forces fresh wheel builds to avoid numpy import errors
 
 [processes]
   app = "streamlit run app.py --server.port=8501 --server.address=0.0.0.0 --server.headless=true"
@@ -21,3 +22,4 @@ primary_region = "bom"
   memory = "512mb"
   cpu_kind = "shared"
   cpus = 1
+
