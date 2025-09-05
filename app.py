@@ -17,6 +17,7 @@ st.set_page_config(
 )
 
 
+
 hide_streamlit_style = """
     <style>
     /* Hide hamburger menu */
@@ -269,19 +270,23 @@ if uploaded_file is not None:
 # Citation 
 st.markdown("---")
 st.markdown("## Citation")
-citation_text = "Vihaan Sahu. NOS-TLPlot: A Traffic Light Plot Visualiser for NOS. 2025. DOI: 10.0000/dummydoi"
+
+citation_text = "Vihaan Sahu. NOS-TLPlot: Visualization Tool for Newcastle–Ottawa Scale in Meta-Analysis (v1.0.0). 2025. DOI: 10.5281/zenodo.17065215"
+
 ris_data = f"""TY  - JOUR
 AU  - Sahu, V
-TI  - NOS-TLPlot: A Traffic Light Plot Visualiser for NOS
+TI  - NOS-TLPlot: Visualization Tool for Newcastle–Ottawa Scale in Meta-Analysis (v1.0.0)
 PY  - 2025
-DO  - 10.0000/dummydoi
+DO  - 10.5281/zenodo.17065215
 ER  -"""
+
 bib_data = f"""@misc{{Sahu2025,
   author={{Sahu, V.}},
-  title={{NOS-TLPlot: A Traffic Light Plot Visualiser for NOS}},
+  title={{NOS-TLPlot: Visualization Tool for Newcastle–Ottawa Scale in Meta-Analysis (v1.0.0)}},
   year={{2025}},
-  doi={{10.0000/dummydoi}}
+  doi={{10.5281/zenodo.17065215}}
 }}"""
+
 st.markdown(f'<p style="margin:0; color:#ffff; font-size:1.1rem;"><i>If you use NOS-TLPlot to create risk-of-bias plots for your study, please remember to cite the tool.</i></p>', unsafe_allow_html=True)
 st.markdown(f'<div class="citation-box"><p style="margin:0; color: #000;">{citation_text}</p></div>', unsafe_allow_html=True)
 

@@ -3,7 +3,8 @@
 [![Python Version](https://img.shields.io/badge/python-3.10+-blue)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Streamlit Demo](https://img.shields.io/badge/Streamlit-Demo-orange)](https://nos-tlplot.streamlit.app)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.YOUR_DOI_HERE.svg)](https://doi.org/10.5281/zenodo.YOUR_DOI_HERE)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17065215.svg)](https://doi.org/10.5281/zenodo.17065215)
+
 
 
 **NOS-TLPlot** is an open-source Python tool for **visualising Newcastle-Ottawa Scale (NOS) risk-of-bias assessments**.
@@ -11,7 +12,7 @@ It converts NOS star ratings into **publication-ready traffic-light plots**, all
 
 🔗 **Interactive web app:** [nos-tlplot.fly.dev](https://nos-tlplot.fly.dev)
 
-📂 **Code & archive (Zenodo DOI):** *(Insert DOI here)*
+📂 **Code & archive (Zenodo DOI):** [10.5281/zenodo.17065215](https://doi.org/10.5281/zenodo.17065215)
 
 ---
 
@@ -92,13 +93,18 @@ streamlit run app.py
 
 ---
 
-## 📄 License
+## Citation
 
-Apache 2.0 © 2025 Vihaan Sahu
+If you use NOS-TLPlot, please cite:
+
+Sahu, V. (2025). NOS-TLPlot: Visualization Tool for Newcastle–Ottawa Scale in Meta-Analysis (v1.0.0). Zenodo. [https://doi.org/10.5281/zenodo.17065215](https://doi.org/10.5281/zenodo.17065215)
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17065215.svg)](https://doi.org/10.5281/zenodo.17065215)
+
 
 ---
 
-## ✅ Reviewer-Friendly Notes
+## Reviewer-Friendly Notes
 
 * Clearly states that NOS-TLPlot is **visualisation-only**, not a bias assessment tool.
 * Emphasises **reproducibility** with example CSV + archived code (Zenodo DOI).
@@ -122,11 +128,9 @@ Here’s an example traffic-light plot generated using NOS-TLPlot.
 
 ---
 
-## 🖼 Preview of NOS-TLPlot
+## NOS-TLPlot
 
 ![Preview](assets/preview.png)
-
-
 
 
 
@@ -152,3 +156,9 @@ NOS-TLPlot converts domain-specific NOS star ratings into **Low, Moderate, or Hi
   * 0–1 stars → High RoB  
 
 This ensures consistent domain-level judgements across all studies, which are then visualized in the traffic-light plots.
+
+---
+
+## 📄 License
+
+Apache 2.0 © 2025 Vihaan Sahu

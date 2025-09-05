@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the following metadata."
+title: "NOS-TLPlot: Visualization Tool for Newcastle–Ottawa Scale in Meta-Analysis"
+version: "1.0.0"
+doi: "10.5281/zenodo.17065215"
+date-released: 2025-09-06
+authors:
+  - family-names: "Sahu"
+    given-names: "Vihaan"
+preferred-citation:
+  type: software
+  authors:
+    - family-names: "Sahu"
+      given-names: "Vihaan"
+  title: "NOS-TLPlot: Visualization Tool for Newcastle–Ottawa Scale in Meta-Analysis"
+  version: "1.0.0"
+  doi: "10.5281/zenodo.17065215"
+  year: 2025
+  url: "https://doi.org/10.5281/zenodo.17065215"

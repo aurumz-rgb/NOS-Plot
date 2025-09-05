@@ -22,4 +22,3 @@ primary_region = "bom"
   memory = "512mb"
   cpu_kind = "shared"
   cpus = 1
-
