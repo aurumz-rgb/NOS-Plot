@@ -9,7 +9,8 @@
 **NOS-TLPlot** is an open-source Python tool for **visualising Newcastle-Ottawa Scale (NOS) risk-of-bias assessments**.
 It converts NOS star ratings into **publication-ready traffic-light plots**, allowing reviewers and readers to quickly interpret study-level risk-of-bias in systematic reviews and meta-analyses.
 
-🔗 **Interactive web app:** [nos-tlplot.streamlit.app](https://nos-tlplot.fly.dev)
+🔗 **Interactive web app:** [nos-tlplot.fly.dev](https://nos-tlplot.fly.dev)
+
 📂 **Code & archive (Zenodo DOI):** *(Insert DOI here)*
 
 ---
@@ -17,7 +18,7 @@ It converts NOS star ratings into **publication-ready traffic-light plots**, all
 ## ✨ Key Features
 
 * Converts NOS star ratings into **traffic-light plots**.
-* Generates **publication-quality figures** (`.png`) with stacked domain-level percentages.
+* Generates **publication-quality figures** (`.png`,`.pdf`,`.svg`,`.eps` ) with stacked domain-level percentages.
 * Open-source, fully reproducible, usable via **Python script** or **Streamlit app**.
 * Adjustable figure size, line thickness, and legends.
 * Scope limited to **NOS assessments of non-randomised studies**.
@@ -74,7 +75,7 @@ python nos_tlplot.py input.csv output.png
 streamlit run app.py
 ```
 
-* Upload your CSV to instantly visualize **traffic-light plots**.
+* Upload your CSV / XLSX to instantly visualize **traffic-light plots**.
 * Adjust figure parameters for **publication-ready output**.
 
 ---

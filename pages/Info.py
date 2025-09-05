@@ -2,7 +2,7 @@ import streamlit as st
 import os
 import base64
 
-st.set_page_config(page_title="NOS-TLPlot / Info", page_icon="./assets/icon.ico", layout="wide")
+st.set_page_config(page_title="NOS-TLPlot / Info", page_icon="./assets/icon.png", layout="wide")
 
 
 hide_streamlit_style = """

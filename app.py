@@ -13,7 +13,7 @@ import streamlit.components.v1 as components
 st.set_page_config(
     page_title="NOS-TLPlot / Home",
     layout="wide",
-    page_icon="./assets/icon.ico"  
+    page_icon="./assets/icon.png"  
 )
 
 
