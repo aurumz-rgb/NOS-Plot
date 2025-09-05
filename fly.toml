@@ -2,9 +2,9 @@ app = "nos-tlplot"
 primary_region = "bom"
 
 [build]
-  builder = "paketobuildpacks/builder:full"  # Python 3.11 supported
+  builder = "paketobuildpacks/builder:full"  # Python 3.10 supported
   [build.env]
-    BP_PYTHON_VERSION = "3.11.*"
+    BP_PYTHON_VERSION = "3.10.*"
 
 [processes]
   app = "streamlit run app.py --server.port=8501 --server.address=0.0.0.0 --server.headless=true"
