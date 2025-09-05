@@ -2,6 +2,7 @@ app = "nos-tlplot"
 primary_region = "bom"
 
 [build]
+  builder = "paketobuildpacks/builder:base"  # ensures Python buildpack runs
 
 [processes]
   app = "python app.py"

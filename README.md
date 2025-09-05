@@ -123,10 +123,10 @@ Here’s an example traffic-light plot generated using NOS-TLPlot.
 
 ## 🖼 Preview of NOS-TLPlot
 
-![Preview](preview.png)
+![Preview](assets/preview.png)
 
 
-Screenshot of the interactive app.
+
 
 
 ---
