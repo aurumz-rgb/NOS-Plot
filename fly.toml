@@ -3,6 +3,8 @@ primary_region = "bom"
 
 [build]
   builder = "paketobuildpacks/builder:base"  # ensures Python buildpack runs
+  [build.env]
+    BP_PYTHON_VERSION = "3.11.*"             # force Python 3.11 for compatibility with your packages
 
 [processes]
   app = "python app.py"
