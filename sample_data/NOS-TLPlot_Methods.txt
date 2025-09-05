@@ -1,0 +1,7 @@
+Supplementary Methods: NOS-TLPlot Risk-of-Bias Visualization
+
+We used the open-source Python tool NOS-TLPlot (DOI: 10.5281/zenodo.YOUR_DOI_HERE) to visualize study-level risk-of-bias assessments based on the Newcastle-Ottawa Scale (NOS). NOS-TLPlot converts NOS star ratings into publication-ready traffic-light plots and summary figures, allowing clear, domain-level interpretation of bias across studies.
+
+Raw NOS scores for all included studies are provided in Supplementary Table Sx (see accompanying sample CSV). Traffic-light plots were generated using default parameters unless otherwise specified. The tool ensures full reproducibility and transparency, providing a standardized visual summary of each study’s risk-of-bias.
+
+Note: NOS-TLPlot is a visualization tool only; it does not modify NOS scores or influence study eligibility.
