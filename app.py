@@ -10,23 +10,6 @@ import streamlit.components.v1 as components
 
 
 
-if __name__ == "__main__":
-    import streamlit.web.bootstrap
-    import sys
-    import os
-
-    port = int(os.environ.get("PORT", 8501))
-    sys.argv = [
-        "streamlit", "run", "app.py",
-        "--server.port", str(port),
-        "--server.address", "0.0.0.0",
-        "--server.headless", "true"
-    ]
-    streamlit.web.bootstrap.run()
-
-
-
-
 st.set_page_config(
     page_title="NOS-TLPlot / Home",
     layout="wide",
