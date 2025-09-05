@@ -1,6 +1,6 @@
 pandas>=2.3.2
-numpy>=1.27.0
+numpy>=1.26.4
 matplotlib>=3.7.1
 seaborn>=0.13.2
-streamlit>=1.47.1
+streamlit>=1.49.1
 pyarrow==11.0.0
