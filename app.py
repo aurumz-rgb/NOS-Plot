@@ -113,8 +113,8 @@ st.markdown(f"""
     font-size: 1.4rem;
     font-weight: 400;
 ">
-    <a href="/" style="color: {'#3498db' if active_page=='Home' else '#ffffff'}; text-decoration:none; transition: color 0.3s;" class="nav-link{' active' if active_page=='Home' else ''}">Home</a>
-    <a href="/Info"  style="color: {'#3498db' if active_page=='Info' else '#ffffff'}; text-decoration:none; transition: color 0.3s;" class="nav-link{' active' if active_page=='Info' else ''}">Info</a>
+    <a href="/" target="_self" style="color: {'#3498db' if active_page=='Home' else '#ffffff'}; text-decoration:none; transition: color 0.3s;" class="nav-link{' active' if active_page=='Home' else ''}">Home</a>
+    <a href="/Info"  target="_self" style="color: {'#3498db' if active_page=='Info' else '#ffffff'}; text-decoration:none; transition: color 0.3s;" class="nav-link{' active' if active_page=='Info' else ''}">Info</a>
 </div>
 
 <style>
