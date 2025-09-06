@@ -267,25 +267,77 @@ if uploaded_file is not None:
     except Exception as e:
         st.error(f"❌ Error: {e}")
 
-# Citation 
+# --- Citation Section ---
 st.markdown("---")
 st.markdown("## Citation")
 
-citation_text = "Vihaan Sahu. NOS-TLPlot: Visualization Tool for Newcastle–Ottawa Scale in Meta-Analysis (v1.0.0). 2025. DOI: 10.5281/zenodo.17065215"
+# Predefined citation formats
+apa_citation = (
+    "Sahu, V. (2025). NOS-TLPlot: Visualization Tool for Newcastle–Ottawa Scale in Meta-Analysis (v1.0.0). "
+    "Zenodo. https://doi.org/10.5281/zenodo.17065215"
+)
 
-ris_data = f"""TY  - JOUR
+harvard_citation = (
+    "Sahu, V., 2025. NOS-TLPlot: Visualization Tool for Newcastle–Ottawa Scale in Meta-Analysis (v1.0.0). "
+    "Zenodo. Available at: https://doi.org/10.5281/zenodo.17065215"
+)
+
+mla_citation = (
+    "Sahu, Vihaan. \"NOS-TLPlot: Visualization Tool for Newcastle–Ottawa Scale in Meta-Analysis (v1.0.0).\" "
+    "2025, Zenodo, https://doi.org/10.5281/zenodo.17065215."
+)
+
+chicago_citation = (
+    "Sahu, Vihaan. 2025. \"NOS-TLPlot: Visualization Tool for Newcastle–Ottawa Scale in Meta-Analysis (v1.0.0).\" "
+    "Zenodo. https://doi.org/10.5281/zenodo.17065215."
+)
+
+ieee_citation = (
+    "V. Sahu, \"NOS-TLPlot: Visualization Tool for Newcastle–Ottawa Scale in Meta-Analysis (v1.0.0),\" "
+    "Zenodo, 2025. doi: 10.5281/zenodo.17065215."
+)
+
+vancouver_citation = (
+    "Sahu V. NOS-TLPlot: Visualization Tool for Newcastle–Ottawa Scale in Meta-Analysis (v1.0.0). "
+    "Zenodo. 2025. doi:10.5281/zenodo.17065215"
+)
+
+ris_data = """TY  - JOUR
 AU  - Sahu, V
 TI  - NOS-TLPlot: Visualization Tool for Newcastle–Ottawa Scale in Meta-Analysis (v1.0.0)
 PY  - 2025
 DO  - 10.5281/zenodo.17065215
 ER  -"""
 
-bib_data = f"""@misc{{Sahu2025,
-  author={{Sahu, V.}},
-  title={{NOS-TLPlot: Visualization Tool for Newcastle–Ottawa Scale in Meta-Analysis (v1.0.0)}},
-  year={{2025}},
-  doi={{10.5281/zenodo.17065215}}
-}}"""
+bib_data = """@misc{Sahu2025,
+  author={Sahu, V.},
+  title={NOS-TLPlot: Visualization Tool for Newcastle–Ottawa Scale in Meta-Analysis (v1.0.0)},
+  year={2025},
+  doi={10.5281/zenodo.17065215}
+}"""
+
+# Dropdown to select style
+citation_style = st.selectbox(
+    "Select citation style",
+    ["APA", "Harvard", "MLA", "Chicago", "IEEE", "Vancouver"]
+)
+
+# Match style to text
+if citation_style == "APA":
+    citation_text = apa_citation
+elif citation_style == "Harvard":
+    citation_text = harvard_citation
+elif citation_style == "MLA":
+    citation_text = mla_citation
+elif citation_style == "Chicago":
+    citation_text = chicago_citation
+elif citation_style == "IEEE":
+    citation_text = ieee_citation
+elif citation_style == "Vancouver":
+    citation_text = vancouver_citation
+
+
+
 
 st.markdown(f'<p style="margin:0; color:#ffff; font-size:1.1rem;"><i>If you use NOS-TLPlot to create risk-of-bias plots for your study, please remember to cite the tool.</i></p>', unsafe_allow_html=True)
 st.markdown(f'<div class="citation-box"><p style="margin:0; color: #000;">{citation_text}</p></div>', unsafe_allow_html=True)
