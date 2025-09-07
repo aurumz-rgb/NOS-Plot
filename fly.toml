@@ -15,10 +15,10 @@ primary_region = "bom"
   force_https = true
   auto_stop_machines = "stop"
   auto_start_machines = true
-  min_machines_running = 0   # 0 allows machines to sleep when idle
+  min_machines_running = 1
   processes = ["app"]
 
 [[vm]]
-  memory = "256MB"
+  memory = "512mb"
   cpu_kind = "shared"
   cpus = 1
