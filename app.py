@@ -10,6 +10,15 @@ import streamlit.components.v1 as components
 
 
 
+
+# Google verification meta tag
+st.markdown("""
+<meta name="google-site-verification" content="fz5FTsNecP2shM5Y9vcPOT48lMJveVHYQ8_DjlrOwTg" />
+""", unsafe_allow_html=True)
+
+
+
+
 st.set_page_config(
     page_title="NOS-TLPlot / Home",
     layout="wide",
