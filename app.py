@@ -181,6 +181,68 @@ st.markdown("""
         margin-top: 0;
         margin-bottom: 10px;
     }
+    
+    /* Plot container with download button */
+    .plot-container {
+        position: relative;
+        margin-bottom: 2rem;
+    }
+    
+    .plot-download-btn {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background: linear-gradient(135deg, #74ebd5, #ACB6E5) !important;
+        color: #2c3e50 !important;
+        font-weight: 600 !important;
+        padding: 0.4rem 0.8rem !important;
+        font-size: 0.9rem !important;
+        border-radius: 8px !important;
+        border: none !important;
+        cursor: pointer !important;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        z-index: 10;
+        transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+    }
+    
+    .plot-download-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+    }
+    
+    /* Format selector styling */
+    .format-selector {
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    /* Multiple download buttons styling */
+    .download-buttons-container {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        display: flex;
+        gap: 8px;
+        z-index: 10;
+    }
+    
+    .small-download-btn {
+        background: linear-gradient(135deg, #74ebd5, #ACB6E5) !important;
+        color: #2c3e50 !important;
+        font-weight: 600 !important;
+        padding: 0.3rem 0.6rem !important;
+        font-size: 0.8rem !important;
+        border-radius: 6px !important;
+        border: none !important;
+        cursor: pointer !important;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+    }
+    
+    .small-download-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 12px rgba(0,0,0,0.3);
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -285,127 +347,178 @@ if uploaded_file is not None:
         # Force garbage collection to free memory
         gc.collect()
         
-        temp_dir = tempfile.mkdtemp()
-        
-        # Generate plots only when needed to save memory
-        plot_files = {}
-        
-        # Generate professional plot
-        output_files = {ext: os.path.join(temp_dir, f"NOS_TrafficLight{ext}") for ext in [".png",".pdf",".svg",".eps"]}
-        for out_ext, path in output_files.items():
-            professional_plot(df, path, theme=theme)
-        plot_files["Professional Traffic-Light Plot"] = output_files
-        gc.collect()  # Free memory after generating plots
-        
-        # Define plot functions
-        plot_functions = [
-            ("Radar Chart", plot_domain_radar, "radar"),
-            ("Theme-based Radar Chart", plot_theme_radar, "theme_radar"),
-            ("Domain Heatmap", plot_domain_heatmap, "heatmap"),
-            ("Dot Profile Plot", plot_dot_profile, "dot_profile"),
-            ("Score Table", plot_score_table, "table"),
-            ("Donut Chart", plot_donut_domain_risk, "donut"),
-            ("Line Plot of Domain Scores", plot_line_ordered_scores, "line_ordered"),
-            ("Lollipop Chart", plot_lollipop_total, "lollipop"),
-            ("Pie Chart", plot_pie_overall_rob, "pie"),
-            ("Stacked Area Chart", plot_stacked_area_risk, "stacked_area")
-        ]
-        
-        # Generate plots with memory optimization
-        for name, func, base in plot_functions:
-            format_files = {}
-            for fmt in [".png", ".pdf", ".svg", ".eps"]:
-                output_path = os.path.join(temp_dir, f"NOS_{base}{fmt}")
-                func(df, output_path, theme=theme)
-                format_files[fmt] = output_path
-            plot_files[name] = format_files
-            gc.collect()  # Free memory after each plot
-        
-        st.markdown("### Visualization Preview")
-        
-        # Display only PNG previews to save memory
-        tab1, tab2, tab3 = st.tabs(["Main Plot", "Radar Charts", "Other Visualizations"])
-        
-        with tab1:
-            st.image(output_files[".png"], use_container_width=True)
-            st.caption("Professional Traffic-Light Bubble Chart")
-        
-        with tab2:
-            col1, col2 = st.columns(2)
-            with col1:
-                st.image(plot_files["Radar Chart"][".png"], use_container_width=True)
-                st.caption("Domain Scores Radar Chart")
-            with col2:
-                st.image(plot_files["Theme-based Radar Chart"][".png"], use_container_width=True)
-                st.caption("Theme-based Domain Scores Radar Chart")
-        
-        with tab3:
-            cols = st.columns(3)
-            plot_names = list(plot_files.keys())[2:]  
+        # Create a temporary directory that will be cleaned up automatically
+        with tempfile.TemporaryDirectory() as temp_dir:
+            # Use a regular dictionary for plot files
+            plot_files = {}
             
-            for i, name in enumerate(plot_names):
-                with cols[i % 3]:
-                    st.image(plot_files[name][".png"], use_container_width=True)
-                    st.caption(name)
-        
-        st.markdown("### 📥 Download Visualizations")
-        
-        plot_options = list(plot_files.keys())
-        selected_plots = st.multiselect(
-            "Select the plots you want to download",
-            plot_options,
-            default=["Professional Traffic-Light Plot"]
-        )
-        
-        download_format = st.selectbox(
-            "Select download format",
-            [".png", ".pdf", ".svg", ".eps"]
-        )
-        
-        if selected_plots:
-            st.markdown("###  Download Selected Plots")
-            st.markdown('<div class="download-button-grid">', unsafe_allow_html=True)
+            # Generate professional plot
+            output_files = {ext: os.path.join(temp_dir, f"NOS_TrafficLight{ext}") for ext in [".png",".pdf",".svg",".eps"]}
+            for out_ext, path in output_files.items():
+                professional_plot(df, path, theme=theme)
+            plot_files["Professional Traffic-Light Plot"] = output_files
+            gc.collect()  # Free memory after generating plots
             
-            for plot_name in selected_plots:
-                file_path = plot_files[plot_name][download_format]
+            # Define plot functions
+            plot_functions = [
+                ("Radar Chart", plot_domain_radar, "radar"),
+                ("Theme-based Radar Chart", plot_theme_radar, "theme_radar"),
+                ("Domain Heatmap", plot_domain_heatmap, "heatmap"),
+                ("Dot Profile Plot", plot_dot_profile, "dot_profile"),
+                ("Score Table", plot_score_table, "table"),
+                ("Donut Chart", plot_donut_domain_risk, "donut"),
+                ("Line Plot of Domain Scores", plot_line_ordered_scores, "line_ordered"),
+                ("Lollipop Chart", plot_lollipop_total, "lollipop"),
+                ("Pie Chart", plot_pie_overall_rob, "pie"),
+                ("Stacked Area Chart", plot_stacked_area_risk, "stacked_area")
+            ]
+            
+            # Generate plots with memory optimization
+            for name, func, base in plot_functions:
+                format_files = {}
+                for fmt in [".png", ".pdf", ".svg", ".eps"]:
+                    output_path = os.path.join(temp_dir, f"NOS_{base}{fmt}")
+                    func(df, output_path, theme=theme)
+                    format_files[fmt] = output_path
+                plot_files[name] = format_files
+                gc.collect()  # Free memory after each plot
+            
+            st.markdown("### Visualization Preview")
+            
+            # Display only PNG previews to save memory
+            tab1, tab2, tab3 = st.tabs(["Main Plot", "Radar Charts", "Other Visualizations"])
+            
+            with tab1:
+                st.markdown('<div class="plot-container">', unsafe_allow_html=True)
+                st.image(output_files[".png"], use_container_width=True)
+                st.caption("Professional Traffic-Light Bubble Chart")
                 
-                # Read file only when needed for download
-                with open(file_path, "rb") as f:
-                    file_data = f.read()
+                # Add download buttons for all formats
+                st.markdown('<div class="download-buttons-container">', unsafe_allow_html=True)
                 
-                filename = f"NOS_{plot_name.replace(' ', '_').replace('-', '_')}{download_format}"
-                
+                formats = [".png", ".pdf", ".svg", ".eps"]
                 mime_types = {
                     ".png": "image/png",
                     ".pdf": "application/pdf",
                     ".svg": "image/svg+xml",
                     ".eps": "application/postscript"
                 }
-                mime_type = mime_types.get(download_format, "application/octet-stream")
                 
-                st.markdown(f"""
-                <div class="download-button-item">
-                    <h4>{plot_name}</h4>
-                </div>
-                """, unsafe_allow_html=True)
+                for fmt in formats:
+                    file_path = output_files[fmt]
+                    with open(file_path, "rb") as f:
+                        file_data = f.read()
+                    
+                    filename = f"NOS_TrafficLight{fmt}"
+                    
+                    st.download_button(
+                        label=f"{fmt[1:].upper()}",
+                        data=file_data,
+                        file_name=filename,
+                        mime=mime_types[fmt],
+                        key=f"download_main_{fmt}",
+                        help=f"Download this plot in {fmt[1:].upper()} format"
+                    )
                 
-                st.download_button(
-                    label=f"Download {download_format[1:].upper()}",
-                    data=file_data,
-                    file_name=filename,
-                    mime=mime_type,
-                    key=f"download_{plot_name}_{download_format}"
-                )
+                st.markdown('</div>', unsafe_allow_html=True)
+                st.markdown('</div>', unsafe_allow_html=True)
             
-            st.markdown('</div>', unsafe_allow_html=True)
-        else:
-            st.info("Please select at least one plot to download.")
-        
-        # Clean up temporary directory
-        shutil.rmtree(temp_dir)
-        
-        # Final garbage collection
-        gc.collect()
+            with tab2:
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.markdown('<div class="plot-container">', unsafe_allow_html=True)
+                    st.image(plot_files["Radar Chart"][".png"], use_container_width=True)
+                    st.caption("Domain Scores Radar Chart")
+                    
+                    # Add download buttons for all formats
+                    st.markdown('<div class="download-buttons-container">', unsafe_allow_html=True)
+                    
+                    for fmt in formats:
+                        file_path = plot_files["Radar Chart"][fmt]
+                        with open(file_path, "rb") as f:
+                            file_data = f.read()
+                        
+                        filename = f"NOS_Radar{fmt}"
+                        
+                        st.download_button(
+                            label=f"{fmt[1:].upper()}",
+                            data=file_data,
+                            file_name=filename,
+                            mime=mime_types[fmt],
+                            key=f"download_radar_{fmt}",
+                            help=f"Download this plot in {fmt[1:].upper()} format"
+                        )
+                    
+                    st.markdown('</div>', unsafe_allow_html=True)
+                    st.markdown('</div>', unsafe_allow_html=True)
+                    
+                with col2:
+                    st.markdown('<div class="plot-container">', unsafe_allow_html=True)
+                    st.image(plot_files["Theme-based Radar Chart"][".png"], use_container_width=True)
+                    st.caption("Theme-based Domain Scores Radar Chart")
+                    
+                    # Add download buttons for all formats
+                    st.markdown('<div class="download-buttons-container">', unsafe_allow_html=True)
+                    
+                    for fmt in formats:
+                        file_path = plot_files["Theme-based Radar Chart"][fmt]
+                        with open(file_path, "rb") as f:
+                            file_data = f.read()
+                        
+                        filename = f"NOS_ThemeRadar{fmt}"
+                        
+                        st.download_button(
+                            label=f"{fmt[1:].upper()}",
+                            data=file_data,
+                            file_name=filename,
+                            mime=mime_types[fmt],
+                            key=f"download_theme_radar_{fmt}",
+                            help=f"Download this plot in {fmt[1:].upper()} format"
+                        )
+                    
+                    st.markdown('</div>', unsafe_allow_html=True)
+                    st.markdown('</div>', unsafe_allow_html=True)
+            
+            with tab3:
+                cols = st.columns(3)
+                plot_names = list(plot_files.keys())[2:]  
+                
+                for i, name in enumerate(plot_names):
+                    with cols[i % 3]:
+                        st.markdown('<div class="plot-container">', unsafe_allow_html=True)
+                        st.image(plot_files[name][".png"], use_container_width=True)
+                        st.caption(name)
+                        
+                        # Add download buttons for all formats
+                        st.markdown('<div class="download-buttons-container">', unsafe_allow_html=True)
+                        
+                        # Create filename based on plot name
+                        clean_name = name.replace(' ', '_').replace('-', '_').replace(' ', '')
+                        
+                        for fmt in formats:
+                            file_path = plot_files[name][fmt]
+                            with open(file_path, "rb") as f:
+                                file_data = f.read()
+                            
+                            filename = f"NOS_{clean_name}{fmt}"
+                            
+                            st.download_button(
+                                label=f"{fmt[1:].upper()}",
+                                data=file_data,
+                                file_name=filename,
+                                mime=mime_types[fmt],
+                                key=f"download_{name}_{fmt}",
+                                help=f"Download this plot in {fmt[1:].upper()} format"
+                            )
+                        
+                        st.markdown('</div>', unsafe_allow_html=True)
+                        st.markdown('</div>', unsafe_allow_html=True)
+            
+            # Explicitly clear references and force garbage collection
+            plot_files.clear()
+            del plot_files
+            del output_files
+            gc.collect()
         
     except Exception as e:
         st.error(f"❌ Error: {e}")

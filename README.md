@@ -29,7 +29,20 @@ It converts NOS star ratings into **publication-ready traffic-light plots** and 
 
 ## USE
 
-- To simply use it → [nos-tlplot.streamlit.app](https://nos-tlplot.streamlit.app)
+- Vercel web leading to Streamlit → [nos-tlplot.vercel.app](https://nos-tlplot.vercel.app)
+
+![Example Result33](example/Screenshot3.png)
+Vercel user-interface
+
+---
+
+- To directly use it → [nos-tlplot.streamlit.app](https://nos-tlplot.streamlit.app)
+
+![Example Result11](example/Screenshot1.png)
+
+![Example Result22](example/Screenshot2.png)
+Streamlit user-interface
+
 ---
 
 ## 📥 Installation (Optional)
