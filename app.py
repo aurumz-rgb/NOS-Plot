@@ -203,8 +203,8 @@ add_background_png("./assets/background.png")
 
 st.markdown('<div class="top-padding-container">', unsafe_allow_html=True)
 
-# Replace Lottie with GIF
-gif_file = "assets/chart.gif"
+
+gif_file = "assets/Chart.gif"
 if os.path.exists(gif_file):
     with open(gif_file, "rb") as f:
         gif_b64 = base64.b64encode(f.read()).decode()
