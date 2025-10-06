@@ -1,6 +1,6 @@
 
 ![Logo](assets/preview1.png)
-[![Python Version](https://img.shields.io/badge/python-3.10+-blue)](https://www.python.org/)
+[![Python Version](https://img.shields.io/badge/python-3.12+-blue)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Streamlit Demo](https://img.shields.io/badge/Streamlit-Demo-orange)](https://nos-tlplot.streamlit.app)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17065214.svg)](https://doi.org/10.5281/zenodo.17065214)
@@ -29,13 +29,13 @@ It converts NOS star ratings into **publication-ready traffic-light plots** and 
 
 ## USE
 
-- To simply use it → [nos-tlplot.onrender.com](https://nos-tlplot.onrender.com)
+- To simply use it → [nos-tlplot.streamlit.app](https://nos-tlplot.streamlit.app)
 ---
 
 ## 📥 Installation (Optional)
 
 ### Prerequisites
-- Python 3.10 or later  
+- This code is based on Python-3.12.3
 - `pip` package manager  
 
 ### Installation Steps
@@ -51,7 +51,7 @@ pip install -r requirements.txt
 
 ---
 
-## ⚡ Usage (directly via Render web OR)
+## ⚡ Usage (directly via Streamlit web OR)
 
 ### 1️⃣ Streamlit Web App (Recommended)
 
@@ -221,7 +221,7 @@ Licensed under the **Apache License 2.0**.
 
 ---
 
-## 📞 Support
+##  Support
 
 *  For usage questions, open a [Discussion](https://github.com/aurumz-rgb/NOS-TLPlot/discussions)
 *  For bug reports or feature requests, open an [Issue](https://github.com/aurumz-rgb/NOS-TLPlot/issues)
