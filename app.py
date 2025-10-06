@@ -12,6 +12,7 @@ import shutil
 from io import BytesIO
 import base64
 import streamlit.components.v1 as components
+import gc  # For garbage collection
 
 st.set_page_config(
     page_title="NOS-TLPlot",
@@ -38,7 +39,6 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
 
 st.markdown("""
 <style>
@@ -184,7 +184,6 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-
 def add_background_png(png_file):
     if os.path.exists(png_file):
         with open(png_file, "rb") as f:
@@ -202,23 +201,21 @@ def add_background_png(png_file):
 
 add_background_png("./assets/background.png")
 
-
 st.markdown('<div class="top-padding-container">', unsafe_allow_html=True)
 
-
-lottie_file = "assets/chart.json"
-if os.path.exists(lottie_file):
-    with open(lottie_file, "rb") as f:
-        lottie_b64 = base64.b64encode(f.read()).decode()
-    lottie_data_url = f"data:application/json;base64,{lottie_b64}"
+# Replace Lottie with GIF
+gif_file = "assets/chart.gif"
+if os.path.exists(gif_file):
+    with open(gif_file, "rb") as f:
+        gif_b64 = base64.b64encode(f.read()).decode()
+    gif_data_url = f"data:image/gif;base64,{gif_b64}"
     
-    lottie_html = f"""
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    gif_html = f"""
     <div style="display: flex; justify-content: center; margin-bottom: 16px;">
-        <lottie-player src="{lottie_data_url}" background="transparent" speed="1" style="width: 180px; height: 180px;" loop autoplay></lottie-player>
+        <img src="{gif_data_url}" style="width: 180px; height: 180px;">
     </div>
     """
-    components.html(lottie_html, height=180)
+    components.html(gif_html, height=180)
 
 st.markdown('<div class="main-content">', unsafe_allow_html=True)
 st.markdown('<h1 class="centered-title">NOS-TLPlot</h1>', unsafe_allow_html=True)
@@ -284,20 +281,23 @@ if uploaded_file is not None:
         df = pd.read_csv(uploaded_file) if ext==".csv" else pd.read_excel(uploaded_file)
         df = process_detailed_nos(df)
         st.success("✅ Data validated successfully!")
-
-       
+        
+        # Force garbage collection to free memory
+        gc.collect()
+        
         temp_dir = tempfile.mkdtemp()
         
-        
+        # Generate plots only when needed to save memory
         plot_files = {}
         
-      
+        # Generate professional plot
         output_files = {ext: os.path.join(temp_dir, f"NOS_TrafficLight{ext}") for ext in [".png",".pdf",".svg",".eps"]}
         for out_ext, path in output_files.items():
             professional_plot(df, path, theme=theme)
         plot_files["Professional Traffic-Light Plot"] = output_files
+        gc.collect()  # Free memory after generating plots
         
-       
+        # Define plot functions
         plot_functions = [
             ("Radar Chart", plot_domain_radar, "radar"),
             ("Theme-based Radar Chart", plot_theme_radar, "theme_radar"),
@@ -311,19 +311,19 @@ if uploaded_file is not None:
             ("Stacked Area Chart", plot_stacked_area_risk, "stacked_area")
         ]
         
+        # Generate plots with memory optimization
         for name, func, base in plot_functions:
-          
             format_files = {}
             for fmt in [".png", ".pdf", ".svg", ".eps"]:
                 output_path = os.path.join(temp_dir, f"NOS_{base}{fmt}")
                 func(df, output_path, theme=theme)
                 format_files[fmt] = output_path
             plot_files[name] = format_files
+            gc.collect()  # Free memory after each plot
         
-       
         st.markdown("### Visualization Preview")
         
-       
+        # Display only PNG previews to save memory
         tab1, tab2, tab3 = st.tabs(["Main Plot", "Radar Charts", "Other Visualizations"])
         
         with tab1:
@@ -340,7 +340,6 @@ if uploaded_file is not None:
                 st.caption("Theme-based Domain Scores Radar Chart")
         
         with tab3:
-          
             cols = st.columns(3)
             plot_names = list(plot_files.keys())[2:]  
             
@@ -349,9 +348,7 @@ if uploaded_file is not None:
                     st.image(plot_files[name][".png"], use_container_width=True)
                     st.caption(name)
         
-      
         st.markdown("### 📥 Download Visualizations")
-        
         
         plot_options = list(plot_files.keys())
         selected_plots = st.multiselect(
@@ -360,29 +357,24 @@ if uploaded_file is not None:
             default=["Professional Traffic-Light Plot"]
         )
         
-      
         download_format = st.selectbox(
             "Select download format",
             [".png", ".pdf", ".svg", ".eps"]
         )
         
-       
         if selected_plots:
             st.markdown("###  Download Selected Plots")
             st.markdown('<div class="download-button-grid">', unsafe_allow_html=True)
             
             for plot_name in selected_plots:
-                
                 file_path = plot_files[plot_name][download_format]
                 
-                
+                # Read file only when needed for download
                 with open(file_path, "rb") as f:
                     file_data = f.read()
                 
-               
                 filename = f"NOS_{plot_name.replace(' ', '_').replace('-', '_')}{download_format}"
                 
-               
                 mime_types = {
                     ".png": "image/png",
                     ".pdf": "application/pdf",
@@ -390,7 +382,6 @@ if uploaded_file is not None:
                     ".eps": "application/postscript"
                 }
                 mime_type = mime_types.get(download_format, "application/octet-stream")
-                
                 
                 st.markdown(f"""
                 <div class="download-button-item">
@@ -412,6 +403,9 @@ if uploaded_file is not None:
         
         # Clean up temporary directory
         shutil.rmtree(temp_dir)
+        
+        # Final garbage collection
+        gc.collect()
         
     except Exception as e:
         st.error(f"❌ Error: {e}")
@@ -482,11 +476,9 @@ elif citation_style == "Vancouver":
 st.markdown(f'<p style="margin:0; color:#f5f6fa; font-size:1.1rem;"><i>Please cite NOS-TLPlot if you use it in your study.</i></p>', unsafe_allow_html=True)
 st.markdown(f'<div class="citation-box"><p style="margin:0;">{citation_text}</p></div>', unsafe_allow_html=True)
 
-#
 ris_data_encoded = base64.b64encode(ris_data.encode()).decode()
 bib_data_encoded = base64.b64encode(bib_data.encode()).decode()
 
-# Create a copy button using JavaScript
 escaped_citation = citation_text.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n').replace('\r', '\\r').replace('\t', '\\t')
 components.html(f"""
     <button id="copyButton" style="background: linear-gradient(135deg, #74ebd5, #ACB6E5); color: #2c3e50; font-weight: 600; padding: 0.45rem 0.9rem; border-radius: 10px; border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.25); margin-top: 10px;">Copy Citation</button>
