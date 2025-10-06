@@ -1,12 +1,11 @@
 
-![Logo](assets/preview.png)
-**📘 NOS-TLPlot** — *Open-source NOS visualization suite for systematic review reproducibility.*
----
-
+![Logo](assets/preview1.png)
 [![Python Version](https://img.shields.io/badge/python-3.10+-blue)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Streamlit Demo](https://img.shields.io/badge/Streamlit-Demo-orange)](https://nos-tlplot.streamlit.app)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17065214.svg)](https://doi.org/10.5281/zenodo.17065214)
+
+---
 
 **NOS-TLPlot** is an open-source Python tool for **visualising Newcastle–Ottawa Scale (NOS) risk-of-bias assessments**.  
 It converts NOS star ratings into **publication-ready traffic-light plots** and **10 specialized visualizations**, enabling reviewers and readers to interpret study-level risk-of-bias results clearly and reproducibly.
@@ -28,9 +27,9 @@ It converts NOS star ratings into **publication-ready traffic-light plots** and 
 
 ---
 
-# USE
+## USE
 
-To simply use it → [nos-tlplot.onrender.com](https://nos-tlplot.onrender.com)
+- To simply use it → [nos-tlplot.onrender.com](https://nos-tlplot.onrender.com)
 ---
 
 ## 📥 Installation (Optional)
